@@ -43,7 +43,30 @@ class _DetailsUserPageState extends State<DetailsUserPage> {
               );
             default:
               if (snapshot.hasError)
-                return Container();
+                return Scaffold(
+                  appBar: AppBar(
+                    title: Text(
+                      widget.username,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    backgroundColor: Color(0xff000000),
+                    centerTitle: true,
+                    elevation: 0,
+                  ),
+                  body: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Text(
+                          'Ocorreu um erro! Favor tente novamente mais tarde.',
+                          style: TextStyle(fontSize: 24),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
               else
                 return Scaffold(
                   body: SafeArea(
@@ -56,17 +79,31 @@ class _DetailsUserPageState extends State<DetailsUserPage> {
                                     "https://i2.wp.com/www.multarte.com.br/wp-content/uploads/2018/12/fundo-cinza-claro18-1024x683.jpg?resize=696%2C464&ssl=1"),
                                 fit: BoxFit.cover),
                           ),
-                          child: Container(
-                            width: double.infinity,
-                            height: 180,
-                            child: Container(
-                              alignment: Alignment(0.0, 2.5),
-                              child: CircleAvatar(
-                                backgroundImage:
-                                    NetworkImage(snapshot.data.avatarUrl),
-                                radius: 60.0,
+                          child: Column(
+                            children: [
+                              Container(
+                                alignment: Alignment.topRight,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(15.0),
+                                  child: Icon(
+                                    Icons.favorite,
+                                    color: Colors.grey,
+                                  ),
+                                ),
                               ),
-                            ),
+                              Container(
+                                width: double.infinity,
+                                height: 160,
+                                child: Container(
+                                  alignment: Alignment(0.0, 2.5),
+                                  child: CircleAvatar(
+                                    backgroundImage:
+                                        NetworkImage(snapshot.data.avatarUrl),
+                                    radius: 60.0,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                         SizedBox(
