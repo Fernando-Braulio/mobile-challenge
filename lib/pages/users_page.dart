@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_challenge/details_user_page.dart';
+import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:mobile_challenge/models/user.dart';
+import 'package:mobile_challenge/pages/details_user_page.dart';
+import 'package:mobile_challenge/pages/initial_search_page.dart';
 import 'package:mobile_challenge/repository/users_repository.dart';
 
 class UsersPage extends StatefulWidget {
@@ -23,15 +25,29 @@ class _UsersPageState extends State<UsersPage> {
 
   @override
   Widget build(BuildContext context) {
+    FlutterStatusbarcolor.setStatusBarColor(Colors.white);
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.username,
+          "Resultado: ${widget.username}",
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Color(0xff000000),
         centerTitle: true,
         elevation: 0,
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => InitialSearchPage(),
+                ),
+              );
+            },
+            icon: Icon(Icons.search),
+          ),
+        ],
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -66,6 +82,15 @@ class _UsersPageState extends State<UsersPage> {
                         itemBuilder: (context, index) {
                           return Card(
                             child: InkWell(
+                              child: ListTile(
+                                leading: CircleAvatar(
+                                  backgroundImage: NetworkImage(
+                                      snapshot.data[index].avatarUrl),
+                                  backgroundColor: Colors.transparent,
+                                ),
+                                title: Text(snapshot.data[index].login),
+                                trailing: Icon(Icons.favorite),
+                              ),
                               onTap: () {
                                 Navigator.push(
                                   context,
@@ -76,15 +101,6 @@ class _UsersPageState extends State<UsersPage> {
                                   ),
                                 );
                               },
-                              child: ListTile(
-                                leading: CircleAvatar(
-                                  backgroundImage: NetworkImage(
-                                      snapshot.data[index].avatarUrl),
-                                  backgroundColor: Colors.transparent,
-                                ),
-                                title: Text(snapshot.data[index].login),
-                                trailing: Icon(Icons.favorite),
-                              ),
                             ),
                           );
                         },
