@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_challenge/db/database.dart';
 import 'package:mobile_challenge/pages/favorites_page.dart';
 import 'package:mobile_challenge/pages/initial_search_page.dart';
 import 'package:mobile_challenge/pages/users_page.dart';
 
 class HomePage extends StatefulWidget {
   String username;
+  final AppDatabase? db;
 
-  HomePage({Key key, this.username}) : super(key: key);
+  HomePage({Key? key, required this.username, this.db}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -14,7 +16,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int paginaAtual = 0;
-  PageController pageController;
+  PageController? pageController;
 
   @override
   void initState() {
@@ -37,8 +39,8 @@ class _HomePageState extends State<HomePage> {
           if (widget.username == null || widget.username == "")
             InitialSearchPage()
           else
-            UsersPage(username: widget.username),
-          FavoritesPage(),
+            UsersPage(username: widget.username, db: widget.db),
+          FavoritesPage(db: widget.db),
         ],
         onPageChanged: setPaginaAtual,
       ),
@@ -50,7 +52,7 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(Icons.favorite), label: 'Favoritos'),
         ],
         onTap: (pagina) {
-          pageController.animateToPage(
+          pageController!.animateToPage(
             pagina,
             duration: Duration(milliseconds: 400),
             curve: Curves.ease,

@@ -4,14 +4,14 @@ import 'package:mobile_challenge/repository/users_repository.dart';
 
 class DetailsUserPage extends StatefulWidget {
   String username;
-  DetailsUserPage({Key key, this.username}) : super(key: key);
+  DetailsUserPage({Key? key, required this.username}) : super(key: key);
 
   @override
   _DetailsUserPageState createState() => _DetailsUserPageState();
 }
 
 class _DetailsUserPageState extends State<DetailsUserPage> {
-  Future<DetailsUser> futureUser;
+  late Future<DetailsUser> futureUser;
 
   @override
   void initState() {
@@ -98,7 +98,7 @@ class _DetailsUserPageState extends State<DetailsUserPage> {
                                   alignment: Alignment(0.0, 2.5),
                                   child: CircleAvatar(
                                     backgroundImage:
-                                        NetworkImage(snapshot.data.avatarUrl),
+                                        NetworkImage(snapshot.data?.avatarUrl ?? snapshot.data.avatarUrl : ""),
                                     radius: 60.0,
                                   ),
                                 ),

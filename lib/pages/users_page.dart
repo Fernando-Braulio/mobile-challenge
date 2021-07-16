@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
+import 'package:mobile_challenge/db/database.dart';
+// import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:mobile_challenge/models/user.dart';
 import 'package:mobile_challenge/pages/details_user_page.dart';
 import 'package:mobile_challenge/pages/initial_search_page.dart';
@@ -7,15 +8,16 @@ import 'package:mobile_challenge/repository/users_repository.dart';
 
 class UsersPage extends StatefulWidget {
   String username;
+  final AppDatabase? db;
 
-  UsersPage({Key key, this.username}) : super(key: key);
+  UsersPage({Key? key, required this.username, this.db}) : super(key: key);
 
   @override
   _UsersPageState createState() => _UsersPageState();
 }
 
 class _UsersPageState extends State<UsersPage> {
-  Future<List<User>> futureUsers;
+  late Future<List<User>> futureUsers;
 
   @override
   void initState() {
@@ -25,7 +27,7 @@ class _UsersPageState extends State<UsersPage> {
 
   @override
   Widget build(BuildContext context) {
-    FlutterStatusbarcolor.setStatusBarColor(Colors.white);
+    // FlutterStatusbarcolor.setStatusBarColor(Colors.white);
     return Scaffold(
       appBar: AppBar(
         title: Text(

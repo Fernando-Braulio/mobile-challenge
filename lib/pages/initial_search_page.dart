@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
+import 'package:mobile_challenge/db/database.dart';
+// import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'home_page.dart';
 
 class InitialSearchPage extends StatefulWidget {
-  const InitialSearchPage({Key key}) : super(key: key);
+  final AppDatabase? db;
+  const InitialSearchPage({Key? key, this.db}) : super(key: key);
 
   @override
   _InitialSearchPageState createState() => _InitialSearchPageState();
@@ -15,7 +17,7 @@ class _InitialSearchPageState extends State<InitialSearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    FlutterStatusbarcolor.setStatusBarColor(Colors.transparent);
+    // FlutterStatusbarcolor.setStatusBarColor(Colors.transparent);
     return Scaffold(
       body: Container(
         height: MediaQuery.of(context).size.height,
@@ -98,8 +100,7 @@ class _InitialSearchPageState extends State<InitialSearchPage> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => HomePage(
-                            username: _controller.text,
-                          ),
+                              username: _controller.text, db: widget.db),
                         ),
                       );
                     }

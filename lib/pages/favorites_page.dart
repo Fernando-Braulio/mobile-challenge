@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_challenge/db/database.dart';
 
 class FavoritesPage extends StatefulWidget {
-  const FavoritesPage({Key key}) : super(key: key);
+  final AppDatabase? db;
+  const FavoritesPage({Key? key, this.db}) : super(key: key);
 
   @override
   _FavoritesPageState createState() => _FavoritesPageState();
