@@ -4,8 +4,8 @@ import 'package:mobile_challenge/db/database.dart';
 import 'home_page.dart';
 
 class InitialSearchPage extends StatefulWidget {
-  final AppDatabase? db;
-  const InitialSearchPage({Key? key, this.db}) : super(key: key);
+  final AppDatabase db;
+  const InitialSearchPage({Key? key, required this.db}) : super(key: key);
 
   @override
   _InitialSearchPageState createState() => _InitialSearchPageState();

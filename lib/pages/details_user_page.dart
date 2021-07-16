@@ -22,7 +22,7 @@ class _DetailsUserPageState extends State<DetailsUserPage> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: FutureBuilder(
+      child: FutureBuilder<DetailsUser>(
         future: getUser(widget.username),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
@@ -98,7 +98,7 @@ class _DetailsUserPageState extends State<DetailsUserPage> {
                                   alignment: Alignment(0.0, 2.5),
                                   child: CircleAvatar(
                                     backgroundImage:
-                                        NetworkImage(snapshot.data?.avatarUrl ?? snapshot.data.avatarUrl : ""),
+                                        NetworkImage(snapshot.data!.avatarUrl!),
                                     radius: 60.0,
                                   ),
                                 ),
@@ -110,9 +110,9 @@ class _DetailsUserPageState extends State<DetailsUserPage> {
                           height: 60,
                         ),
                         Text(
-                          snapshot.data.name == null || snapshot.data.name == ""
-                              ? snapshot.data.login
-                              : snapshot.data.name,
+                          snapshot.data!.name == null
+                              ? snapshot.data!.login
+                              : snapshot.data!.name!,
                           style: TextStyle(
                               fontSize: 25.0,
                               color: Colors.blueGrey,
@@ -123,10 +123,9 @@ class _DetailsUserPageState extends State<DetailsUserPage> {
                           height: 10,
                         ),
                         Text(
-                          snapshot.data.location == null ||
-                                  snapshot.data.location == ""
+                          snapshot.data!.location == null
                               ? ""
-                              : snapshot.data.location,
+                              : snapshot.data!.location!,
                           style: TextStyle(
                               fontSize: 18.0,
                               color: Colors.black45,
@@ -139,9 +138,9 @@ class _DetailsUserPageState extends State<DetailsUserPage> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10.0),
                           child: Text(
-                            snapshot.data.bio == null || snapshot.data.bio == ""
+                            snapshot.data!.bio == null
                                 ? ""
-                                : snapshot.data.bio,
+                                : snapshot.data!.bio!,
                             style: TextStyle(
                                 fontSize: 12.0,
                                 color: Colors.black,
@@ -174,7 +173,7 @@ class _DetailsUserPageState extends State<DetailsUserPage> {
                                         height: 7,
                                       ),
                                       Text(
-                                        snapshot.data.followers.toString(),
+                                        snapshot.data!.followers.toString(),
                                         style: TextStyle(
                                             color: Colors.black,
                                             fontSize: 22.0,
@@ -197,7 +196,7 @@ class _DetailsUserPageState extends State<DetailsUserPage> {
                                         height: 7,
                                       ),
                                       Text(
-                                        snapshot.data.following.toString(),
+                                        snapshot.data!.following.toString(),
                                         style: TextStyle(
                                             color: Colors.black,
                                             fontSize: 22.0,
@@ -221,14 +220,14 @@ class _DetailsUserPageState extends State<DetailsUserPage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Nickname: ${snapshot.data.login}",
+                                    "Nickname: ${snapshot.data!.login}",
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 12.0,
                                         fontWeight: FontWeight.w600),
                                   ),
                                   Text(
-                                    "E-mail: ${snapshot.data.email == null ? "" : snapshot.data.email}",
+                                    "E-mail: ${snapshot.data!.email == null ? "" : snapshot.data!.email}",
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 12.0,

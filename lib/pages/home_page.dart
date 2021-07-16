@@ -6,9 +6,10 @@ import 'package:mobile_challenge/pages/users_page.dart';
 
 class HomePage extends StatefulWidget {
   String username;
-  final AppDatabase? db;
+  final AppDatabase db;
 
-  HomePage({Key? key, required this.username, this.db}) : super(key: key);
+  HomePage({Key? key, required this.username, required this.db})
+      : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -37,7 +38,7 @@ class _HomePageState extends State<HomePage> {
         controller: pageController,
         children: [
           if (widget.username == null || widget.username == "")
-            InitialSearchPage()
+            InitialSearchPage(db: widget.db)
           else
             UsersPage(username: widget.username, db: widget.db),
           FavoritesPage(db: widget.db),
