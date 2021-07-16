@@ -11,4 +11,7 @@ abstract class FavoritesRepositoryDao
 
   @Query('SELECT * FROM Favorites WHERE id is not null and id = :id')
   Future<Favorites?> getById(int id);
+
+  @Query('SELECT * FROM Favorites WHERE login = :login')
+  Future<Favorites?> getFavoriteLogin(String login);
 }

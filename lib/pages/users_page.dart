@@ -107,15 +107,29 @@ class _UsersPageState extends State<UsersPage> {
                                     Icons.favorite,
                                     color: snapshot.data![index].colorFavorite,
                                   ),
-                                  onPressed: () {
-                                    widget.db.favoritesRepositoryDao.insertItem(
-                                      Favorites(
-                                          createdAt:
-                                              DateTime.now().toUtc().toString(),
-                                          avatarUrl:
-                                              snapshot.data![index].avatarUrl,
-                                          login: snapshot.data![index].login),
-                                    );
+                                  onPressed: () async {
+                                    final Temfavorite = await widget
+                                        .db.favoritesRepositoryDao
+                                        .getFavoriteLogin(
+                                            snapshot.data![index].login);
+
+                                    if (Temfavorite == null ||
+                                        Temfavorite.id == 0) {
+                                      await widget.db.favoritesRepositoryDao
+                                          .insertItem(
+                                        Favorites(
+                                            createdAt: DateTime.now()
+                                                .toUtc()
+                                                .toString(),
+                                            avatarUrl:
+                                                snapshot.data![index].avatarUrl,
+                                            login: snapshot.data![index].login),
+                                      );
+                                    } else {
+                                      await widget.db.favoritesRepositoryDao
+                                          .deleteItem(Temfavorite);
+                                    }
+
                                     setState(() {
                                       snapshot.data![index].isFavorite =
                                           !snapshot.data![index].isFavorite;

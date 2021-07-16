@@ -81,7 +81,7 @@ class _$AppDatabase extends AppDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `Favorites` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `createdAt` TEXT, `avatarUrl` TEXT, `login` TEXT)');
+            'CREATE TABLE IF NOT EXISTS `Favorites` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `createdAt` TEXT, `avatarUrl` TEXT, `login` TEXT)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -145,7 +145,7 @@ class _$FavoritesRepositoryDao extends FavoritesRepositoryDao {
   Future<List<Favorites>> getAll() async {
     return _queryAdapter.queryList('SELECT * FROM Favorites',
         mapper: (Map<String, Object?> row) => Favorites(
-            id: row['id'] as int,
+            id: row['id'] as int?,
             createdAt: row['createdAt'] as String?,
             avatarUrl: row['avatarUrl'] as String?,
             login: row['login'] as String?));
@@ -156,11 +156,22 @@ class _$FavoritesRepositoryDao extends FavoritesRepositoryDao {
     return _queryAdapter.query(
         'SELECT * FROM Favorites WHERE id is not null and id = ?1',
         mapper: (Map<String, Object?> row) => Favorites(
-            id: row['id'] as int,
+            id: row['id'] as int?,
             createdAt: row['createdAt'] as String?,
             avatarUrl: row['avatarUrl'] as String?,
             login: row['login'] as String?),
         arguments: [id]);
+  }
+
+  @override
+  Future<Favorites?> getFavoriteLogin(String login) async {
+    return _queryAdapter.query('SELECT * FROM Favorites WHERE login = ?1',
+        mapper: (Map<String, Object?> row) => Favorites(
+            id: row['id'] as int?,
+            createdAt: row['createdAt'] as String?,
+            avatarUrl: row['avatarUrl'] as String?,
+            login: row['login'] as String?),
+        arguments: [login]);
   }
 
   @override
