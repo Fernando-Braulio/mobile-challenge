@@ -20,7 +20,7 @@ class UsersPage extends StatefulWidget {
 
 class _UsersPageState extends State<UsersPage> {
   late Future<List<User>> futureUsers;
-  late Color colorIconFavorite = Colors.grey;
+  // late Color colorIconFavorite = Colors.grey;
 
   @override
   void initState() {
@@ -52,10 +52,7 @@ class _UsersPageState extends State<UsersPage> {
                 ),
               );
             },
-            icon: Icon(
-              Icons.search,
-              color: colorIconFavorite,
-            ),
+            icon: Icon(Icons.search),
           ),
         ],
       ),
@@ -64,7 +61,7 @@ class _UsersPageState extends State<UsersPage> {
         children: [
           Expanded(
             child: FutureBuilder<List<User>>(
-              future: getUsers(widget.username),
+              future: futureUsers, //getUsers(widget.username),
               builder: (context, snapshot) {
                 switch (snapshot.connectionState) {
                   case ConnectionState.waiting:
@@ -106,7 +103,10 @@ class _UsersPageState extends State<UsersPage> {
                                 ),
                                 title: Text(snapshot.data![index].login),
                                 trailing: IconButton(
-                                  icon: Icon(Icons.favorite),
+                                  icon: Icon(
+                                    Icons.favorite,
+                                    color: snapshot.data![index].colorFavorite,
+                                  ),
                                   onPressed: () {
                                     widget.db.favoritesRepositoryDao.insertItem(
                                       Favorites(
@@ -116,7 +116,15 @@ class _UsersPageState extends State<UsersPage> {
                                               snapshot.data![index].avatarUrl,
                                           login: snapshot.data![index].login),
                                     );
-                                    colorIconFavorite = Colors.red;
+                                    setState(() {
+                                      snapshot.data![index].isFavorite =
+                                          !snapshot.data![index].isFavorite;
+
+                                      snapshot.data![index].colorFavorite =
+                                          snapshot.data![index].isFavorite
+                                              ? Colors.red
+                                              : Colors.grey;
+                                    });
                                   },
                                 ),
                               ),

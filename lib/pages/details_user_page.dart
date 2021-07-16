@@ -81,16 +81,16 @@ class _DetailsUserPageState extends State<DetailsUserPage> {
                           ),
                           child: Column(
                             children: [
-                              Container(
-                                alignment: Alignment.topRight,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(15.0),
-                                  child: Icon(
-                                    Icons.favorite,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                              ),
+                              // Container(
+                              //   alignment: Alignment.topRight,
+                              //   child: Padding(
+                              //     padding: const EdgeInsets.all(15.0),
+                              //     child: Icon(
+                              //       Icons.favorite,
+                              //       color: Colors.grey,
+                              //     ),
+                              //   ),
+                              // ),
                               Container(
                                 width: double.infinity,
                                 height: 160,

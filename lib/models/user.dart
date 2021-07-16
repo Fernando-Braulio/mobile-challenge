@@ -1,3 +1,6 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
 class User {
   late String login;
   int? id;
@@ -18,6 +21,8 @@ class User {
   String? type;
   bool? siteAdmin;
   double? score;
+  late bool isFavorite;
+  late Color colorFavorite;
 
   User(
       {required this.login,
@@ -38,7 +43,9 @@ class User {
       this.receivedEventsUrl,
       this.type,
       this.siteAdmin,
-      this.score});
+      this.score,
+      required this.isFavorite,
+      required this.colorFavorite});
 
   User.fromJson(Map<String, dynamic> json) {
     login = json['login'];
@@ -60,6 +67,8 @@ class User {
     type = json['type'];
     siteAdmin = json['site_admin'];
     score = json['score'];
+    colorFavorite = Colors.grey;
+    isFavorite = false;
   }
 
   Map<String, dynamic> toJson() {
